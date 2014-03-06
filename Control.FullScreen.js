@@ -120,12 +120,18 @@ source : http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugi
 			fullScreenApi.prefix = browserPrefixes[i];
 
 			if (typeof document[fullScreenApi.prefix + 'CancelFullScreen' ] != 'undefined' ) {
-				fullScreenApi.supportsFullScreen = true;
+                fullScreenApi.supportsFullScreen = true;
 
 				break;
 			}
 		}
 	}
+
+    var ua = navigator.userAgent;
+    if ((ua.indexOf('Safari') != -1) && ua.indexOf('Mac') != -1 && ua.indexOf('Chrome') == -1) {
+        // it's Safari on Mac
+        fullScreenApi.supportsFullScreen = false;
+    }
 
 	// update methods to do something useful
 	if (fullScreenApi.supportsFullScreen) {
